@@ -1,0 +1,64 @@
+stages:
+  - pull_changes
+  - build_and_push
+  - deploy_to_azure
+
+variables:
+  REGISTRY: registry.gitlab.com
+  PROJECT_NAME: "test475407/hackaton"
+  BACKEND_IMAGE: "$REGISTRY/$PROJECT_NAME/hackaton-starter-template"
+  FRONTEND_IMAGE: "$REGISTRY/$PROJECT_NAME/my-app"
+  AZURE_VM_IP: "20.251.145.158"
+  AZURE_SSH_USER: "azureuser"
+  REPO_PATH: "."  # Root path, since both backend and frontend are in the same repo
+
+# Step 1: Acknowledge GitLab already clones the repo
+pull_changes:
+  stage: pull_changes
+  script:
+    - echo "Repository already cloned by GitLab CI"
+  only:
+    - main
+
+# Step 2: Build Docker images and push to GitLab Registry
+build_and_push:
+  stage: build_and_push
+  script:
+    - echo "Logging in to GitLab container registry"
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $REGISTRY
+
+    - echo "Building and pushing backend image"
+    - cd $REPO_PATH/hackaton-starter-template
+    - docker build -t $BACKEND_IMAGE .
+    - docker push $BACKEND_IMAGE
+
+    - echo "Building and pushing frontend image"
+    - cd ../my-app
+    - docker build -t $FRONTEND_IMAGE .
+    - docker push $FRONTEND_IMAGE
+  only:
+    - main
+
+# Step 3: Deploy using base64-decoded private key
+deploy_to_azure:
+  stage: deploy_to_azure
+  before_script:
+    - mkdir -p ~/.ssh
+    # Use the AZURE_SSH_KEY variable which is already base64 encoded
+    - echo "$AZURE_SSH_KEY" | base64 -d > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+  script:
+    - echo "Connecting to Azure VM and deploying"
+    - ssh -o StrictHostKeyChecking=no $AZURE_SSH_USER@$AZURE_VM_IP "
+      echo 'Listing files in the current directory before cd'ing into docker-compose directory' &&
+      ls -l && # List files in the current directory
+      cd /path/to/your/docker-compose/directory &&
+      echo 'Listing files after cd'ing into docker-compose directory' &&
+      ls -l && # List files in the docker-compose directory
+      docker-compose pull &&
+      docker-compose up -d
+      "
+  only:
+    - main
+
+

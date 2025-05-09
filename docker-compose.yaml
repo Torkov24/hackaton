@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   backend:
-    build:
-      context: ./hackaton-starter-template
-      dockerfile: Dockerfile
+    image: registry.gitlab.com/test475407/hackaton/backend:latest  # Replace with your actual registry path
     container_name: springbootapp
     ports:
       - "8080:8080"
@@ -12,11 +10,12 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://hakaton.postgres.database.azure.com:5432/postgres
       SPRING_DATASOURCE_USERNAME: hakatonpg
       SPRING_DATASOURCE_PASSWORD: Postgres123!
+    # If your GitLab registry is private, you might need to authenticate first with docker login:
+    # docker login registry.gitlab.com -u <CI_REGISTRY_USER> -p <CI_REGISTRY_PASSWORD>
 
-  my-app-fronten:
-    build:
-      context: ./my-app
-      dockerfile: Dockerfile
+  frontend:
+    image: registry.gitlab.com/test475407/hackaton/frontend:latest  # Replace with your actual registry path
+    container_name: my-app-frontend
     ports:
       - "3000:3000"
     depends_on:
