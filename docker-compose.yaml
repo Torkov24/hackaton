@@ -10,12 +10,12 @@ services:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://hakaton.postgres.database.azure.com:5432/postgres
-      SPRING_DATASOURCE_USERNAME: hakaton
+      SPRING_DATASOURCE_USERNAME: hakatonpg
       SPRING_DATASOURCE_PASSWORD: Postgres123!
 
-  frontend:
+  my-app-fronten:
     build:
-      context: ./techTitansFe
+      context: ./my-app
       dockerfile: Dockerfile
     ports:
       - "3000:3000"
