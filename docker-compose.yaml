@@ -11,9 +11,9 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgresdb:5432/testdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATASOURCE_URL: jdbc:postgresql://hakaton.postgres.database.azure.com:5432/postgres
+      SPRING_DATASOURCE_USERNAME: hakaton
+      SPRING_DATASOURCE_PASSWORD: Postgres123!
 
   frontend:
     build:
@@ -23,18 +23,6 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-
-  postgres:
-    image: postgres:16
-    container_name: postgresdb
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: testdb
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
 volumes:
   pgdata:
