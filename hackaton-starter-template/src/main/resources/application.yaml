@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: hackaton-starter-template
+  datasource:
+    url: jdbc:postgresql://host.docker.internal:5432/testdb
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver

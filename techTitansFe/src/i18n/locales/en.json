@@ -1,0 +1,54 @@
+{
+  "navigation": {
+    "appName": "My App",
+    "login": "Login",
+    "logout": "Logout",
+    "dashboard": "Dashboard"
+  },
+  "app": {
+    "name": "Tech Titans"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "loginFailed": "Login failed. Please try again.",
+    "logoutFailed": "Logout failed. Please try again."
+  },
+  "home": {
+    "welcome": "Welcome to Tech Titans",
+    "description": "Your one-stop solution for tech management",
+    "loggedIn": "You are logged in. Go to your dashboard to manage your profile.",
+    "notLoggedIn": "Please log in to access your dashboard."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {{name}}!",
+    "description": "Manage your profile and settings here."
+  },
+  "profile": {
+    "title": "Profile Information",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "saveChanges": "Save Changes",
+    "reset": "Reset",
+    "formErrors": "Please fix the errors in the form",
+    "validation": {
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least 2 characters long",
+      "nameMaxLength": "Name cannot exceed 50 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "passwordPattern": "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "language": {
+    "select": "Select Language",
+    "en": "English",
+    "mk": "Macedonian"
+  }
+} 
