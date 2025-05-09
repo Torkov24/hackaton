@@ -8,8 +8,6 @@ services:
     container_name: springbootapp
     ports:
       - "8080:8080"
-    depends_on:
-      - postgres
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://hakaton.postgres.database.azure.com:5432/postgres
       SPRING_DATASOURCE_USERNAME: hakaton
